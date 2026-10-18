@@ -60,11 +60,13 @@ public class EventService {
 
     @Transactional(readOnly = true)
     public Page<EventResponse> getAllEvents(String keyword, LocalDateTime afterDate, Pageable pageable) {
-        Page<Event> eventPage = eventRepository.searchEvents(
-                keyword != null && !keyword.isBlank() ? keyword.trim() : null,
-                afterDate != null ? afterDate : LocalDateTime.now(),
-                pageable
-        );
+        LocalDateTime dateFilter = afterDate != null ? afterDate : LocalDateTime.now();
+        Page<Event> eventPage;
+        if (keyword != null && !keyword.isBlank()) {
+            eventPage = eventRepository.searchEventsWithKeyword(keyword.trim(), dateFilter, pageable);
+        } else {
+            eventPage = eventRepository.findUpcomingEvents(dateFilter, pageable);
+        }
         return eventPage.map(this::mapToResponse);
     }
 
