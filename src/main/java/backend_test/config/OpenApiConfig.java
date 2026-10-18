@@ -34,8 +34,8 @@ public class OpenApiConfig {
                                 .email("vasanth.kumar@botsedge.ai"))
                         .license(new License().name("Apache 2.0").url("https://spring.io")))
                 .servers(List.of(
-                        new Server().url("http://localhost:" + serverPort).description("Local Development Server"),
-                        new Server().url("/").description("Current Server (Production / Render)")
+                        new Server().url("/").description("Current Server (Production / Local)"),
+                        new Server().url("http://localhost:" + serverPort).description("Local Development Server")
                 ))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .components(new Components()
