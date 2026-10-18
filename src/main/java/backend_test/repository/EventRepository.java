@@ -22,14 +22,13 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("SELECT e FROM Event e WHERE e.eventDate >= :now AND e.availableTickets > 0 ORDER BY e.eventDate ASC")
     Page<Event> findUpcomingAvailableEvents(@Param("now") LocalDateTime now, Pageable pageable);
 
-    @Query("SELECT e FROM Event e WHERE (:afterDate IS NULL OR e.eventDate >= :afterDate) ORDER BY e.eventDate ASC")
-    Page<Event> findUpcomingEvents(@Param("afterDate") LocalDateTime afterDate, Pageable pageable);
+    Page<Event> findByEventDateGreaterThanEqualOrderByEventDateAsc(LocalDateTime afterDate, Pageable pageable);
 
     @Query("SELECT e FROM Event e WHERE " +
             "(LOWER(e.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(e.location) LIKE LOWER(CONCAT('%', :keyword, '%'))) AND " +
-            "(:afterDate IS NULL OR e.eventDate >= :afterDate) " +
+            "e.eventDate >= :afterDate " +
             "ORDER BY e.eventDate ASC")
-    Page<Event> searchEventsWithKeyword(@Param("keyword") String keyword, @Param("afterDate") LocalDateTime afterDate, Pageable pageable);
+    Page<Event> searchEventsWithKeywordAndDate(@Param("keyword") String keyword, @Param("afterDate") LocalDateTime afterDate, Pageable pageable);
 
     /**
      * Highly optimized atomic row-level decrement to prevent overselling under extreme concurrency.

@@ -63,9 +63,9 @@ public class EventService {
         LocalDateTime dateFilter = afterDate != null ? afterDate : LocalDateTime.now();
         Page<Event> eventPage;
         if (keyword != null && !keyword.isBlank()) {
-            eventPage = eventRepository.searchEventsWithKeyword(keyword.trim(), dateFilter, pageable);
+            eventPage = eventRepository.searchEventsWithKeywordAndDate(keyword.trim(), dateFilter, pageable);
         } else {
-            eventPage = eventRepository.findUpcomingEvents(dateFilter, pageable);
+            eventPage = eventRepository.findByEventDateGreaterThanEqualOrderByEventDateAsc(dateFilter, pageable);
         }
         return eventPage.map(this::mapToResponse);
     }
