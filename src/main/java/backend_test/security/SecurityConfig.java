@@ -40,7 +40,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/events/**").permitAll()
                         .requestMatchers("/api/v1/health").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/h2-console/**").permitAll()
 
                         // Event Organizer Endpoints
                         .requestMatchers(HttpMethod.POST, "/api/v1/events").hasRole("ORGANIZER")

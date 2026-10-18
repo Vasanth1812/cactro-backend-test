@@ -1,6 +1,6 @@
 # 🎟️ Event Booking System - Backend API
 
-A high-concurrency, production-ready Event Booking System built with **Java 21**, **Spring Boot 3.4.4**, **PostgreSQL / H2**, **Spring Security (JWT RBAC)**, and **Asynchronous Email Notification Pipelines**.
+A high-concurrency, production-ready Event Booking System built with **Java 21**, **Spring Boot 3.4.4**, **Neon Serverless PostgreSQL**, **Spring Security (JWT RBAC)**, and **Asynchronous Email Notification Pipelines**.
 
 Developed for the **Cactro Technical Assessment**.
 
@@ -31,7 +31,7 @@ graph TD
     EventCtrl --> EventService["EventService"]
     BookCtrl --> BookService["BookingService"]
     
-    BookService -->|Row-Level Atomic Decrement| DB[("Neon Serverless PostgreSQL / H2")]
+    BookService -->|Row-Level Atomic Decrement| DB[("Neon Serverless PostgreSQL")]
     EventService --> DB
     
     BookService -.->|Trigger Task 1 (Async Event)| AsyncQueue["ThreadPoolTaskExecutor (event-async-*)"]
@@ -160,13 +160,12 @@ Inventory Integrity Status: [OK] ZERO OVERSELLING DETECTED
 * Java 21 (JDK 21)
 * Python 3 (for stress test script)
 
-### 2. Start Application (Uses In-Memory H2 DB by default)
+### 2. Start Application (Connected to Neon PostgreSQL)
 ```bash
 ./mvnw.cmd spring-boot:run
 ```
 * API Server: `http://localhost:8080`
 * Swagger UI: `http://localhost:8080/swagger-ui/index.html`
-* H2 Console: `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:cactro_dev`, User: `sa`, Password: *(blank)*)
 
 ### 3. Pre-Seeded Demo Accounts
 * **Organizer:** `organizer@cactro.com` / `Password@123`

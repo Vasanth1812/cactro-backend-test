@@ -20,16 +20,13 @@ public class HealthController {
     @Value("${spring.application.name:backend-test}")
     private String appName;
 
-    @Value("${spring.profiles.active:dev}")
-    private String activeProfile;
-
     @GetMapping
-    @Operation(summary = "Check service health", description = "Returns service health, timestamp, and active environment profile")
+    @Operation(summary = "Check service health", description = "Returns service health, timestamp, and database status")
     public ResponseEntity<ApiResponse<Map<String, Object>>> checkHealth() {
         Map<String, Object> healthData = Map.of(
                 "application", appName,
                 "status", "UP",
-                "profile", activeProfile,
+                "database", "Neon PostgreSQL (Serverless)",
                 "timestamp", LocalDateTime.now()
         );
         return ResponseEntity.ok(ApiResponse.success("Service is up and running healthy", healthData));

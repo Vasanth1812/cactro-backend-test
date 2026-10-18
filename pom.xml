@@ -77,12 +77,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- H2 In-Memory Database (for rapid local testing without requiring active Postgres) -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
 
 		<!-- Lombok -->
 		<dependency>
