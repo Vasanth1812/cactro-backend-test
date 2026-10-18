@@ -23,6 +23,7 @@ COPY --from=build /app/target/*.jar app.jar
 
 # Render assigns dynamic PORT environment variable (default fallback 8080)
 ENV PORT=8080
+ENV SPRING_PROFILES_ACTIVE=prod
 EXPOSE ${PORT}
 
 ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT} -jar app.jar"]
